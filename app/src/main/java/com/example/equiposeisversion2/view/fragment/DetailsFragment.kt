@@ -1,20 +1,65 @@
 package com.example.equiposeisversion2.view.fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.example.equiposeisversion2.R
+import com.example.equiposeisversion2.databinding.FragmentDetailsBinding
+import com.example.equiposeisversion2.model.InventoryMascota
+import com.example.equiposeisversion2.viewmodel.InventoryViewModel
+import kotlinx.coroutines.launch
 
 class DetailsFragment : Fragment() {
+
+    private lateinit var binding: FragmentDetailsBinding
+    private val inventoryViewModel: InventoryViewModel by viewModels ()
+    private lateinit var receivedInventoryMascota: InventoryMascota
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_details, container, false)
+        binding = FragmentDetailsBinding.inflate(inflater)
+        binding.lifecycleOwner = this
+        return binding.root
+    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        controladores()
+        dataInventory()
+    }
+
+    private fun controladores() {
+        binding.fabEliminar.setOnClickListener{
+            findNavController().navigate(R.id.action_detailsFragment_to_homeFragment)
+        }
+    }
+
+    @Suppress("DEPRECATION")
+    private fun dataInventory() {
+        receivedInventoryMascota = arguments?.getSerializable("clave") as? InventoryMascota
+            ?: run {
+                Log.e("DetailsFragment", "InventoryMascota es null")
+                return
+            }
+
+        Log.d("DetailsFragment", "Recibido: $receivedInventoryMascota")
+
+        binding.tvRazainput.text = receivedInventoryMascota.nameMascota
+        binding.etNombrePropietarioText.setText(receivedInventoryMascota.namePropietario)
+        binding.tvRazaEdit.text = receivedInventoryMascota.raza
+        binding.etTelfonoEdit.setText(receivedInventoryMascota.telefono)
+        binding.tvSintoma.text = receivedInventoryMascota.sintomas
+        binding.tvTurno.text = "#${receivedInventoryMascota.quantity}"
+
+
     }
 
 }

@@ -18,12 +18,6 @@ class InventoryViewModel(application: Application) : AndroidViewModel(applicatio
     private val _razas = MutableLiveData<Map<String, List<String>>>()
     val razas: LiveData<Map<String, List<String>>> = _razas
 
-    private val _imagenUrl = MutableLiveData<String>()
-    val imagenUrl: LiveData<String> = _imagenUrl
-
-    private val _listaMascota = MutableLiveData<List<RazaResponse>>()
-    val listaMascota: LiveData<List<RazaResponse>> = _listaMascota
-
     private val _progresState = MutableLiveData(false)
     val progresState: LiveData<Boolean> = _progresState
 
@@ -64,6 +58,5 @@ class InventoryViewModel(application: Application) : AndroidViewModel(applicatio
     suspend fun obtenerSiguienteTurno(): Int {
         return repository.contarMascotas() + 1
     }
-
 
 }

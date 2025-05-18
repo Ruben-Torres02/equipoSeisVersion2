@@ -14,7 +14,7 @@ import com.example.equiposeisversion2.databinding.FragmentHomeBinding
 import com.example.equiposeisversion2.view.adapter.InventoryAdapter
 import com.example.equiposeisversion2.viewmodel.InventoryViewModel
 
-class HomeFragment : Fragment() {
+class  HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private val inventoryViewModel: InventoryViewModel by viewModels()

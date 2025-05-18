@@ -21,13 +21,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.20"
+            app:layout_constraintGuide_percent="0.18"
             />
 
 
         <androidx.appcompat.widget.Toolbar
             android:layout_width="350dp"
-            android:layout_height="100dp"
+            android:layout_height="95dp"
             android:background="@drawable/toolbar"
             app:layout_constraintBottom_toBottomOf="@id/guide1"
             app:layout_constraintEnd_toEndOf="parent"
@@ -51,7 +51,7 @@
                     android:scaleType="fitCenter" />
 
                 <TextView
-                    android:id="@+id/tvRazaToolbar"
+                    android:id="@+id/tvRazainput"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -66,7 +66,7 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardFondo"
-            android:layout_width="390dp"
+            android:layout_width="wrap_content"
             android:layout_height="300dp"
             android:layout_alignParentBottom="true"
             android:layout_marginTop="80dp"
@@ -205,28 +205,34 @@
         </androidx.cardview.widget.CardView>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabEditar"
+            android:id="@+id/fabEliminar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="25dp"
+            android:layout_margin="35dp"
+            app:maxImageSize="24dp"
+            app:layout_constraintVertical_bias="1.0"
             android:src="@drawable/icon_delete"
             app:tint="@color/white"
+            app:layout_constraintTop_toBottomOf="@id/cardFondo"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:backgroundTint="@color/rosado"
             android:contentDescription="Agregar nuevo elemento" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabEliminar"
+            android:id="@+id/fabEditar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="25dp"
+            android:layout_margin="35dp"
+            android:contentDescription="Agregar nuevo elemento"
             android:src="@drawable/icon_pencil"
-            app:tint="@color/white"
+            app:maxImageSize="24dp"
+            app:backgroundTint="@color/azul_oscuro"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:backgroundTint="@color/azul_oscuro"
-            android:contentDescription="Agregar nuevo elemento" />
+            app:layout_constraintTop_toBottomOf="@id/cardFondo"
+            app:layout_constraintVertical_bias="1.0"
+            app:tint="@color/white" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

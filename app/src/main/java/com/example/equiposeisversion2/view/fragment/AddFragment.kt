@@ -59,6 +59,7 @@ class AddFragment : Fragment() {
                     .show()
                 return@setOnClickListener
             }
+
             lifecycleScope.launch {
                 val nuevoTurno = viewModel.obtenerSiguienteTurno()
 
