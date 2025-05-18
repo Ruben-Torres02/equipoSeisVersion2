@@ -1,10 +1,14 @@
 package com.example.equiposeisversion2.view.fragment
 
+import android.app.AlertDialog
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -31,6 +35,7 @@ class AddFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         configurarControladores()
+        validacionCampos()
         cargarRazas()
     }
 
@@ -45,6 +50,16 @@ class AddFragment : Fragment() {
         }
 
         binding.btnGuardar.setOnClickListener {
+            val sintomaSeleccionado = binding.sintomasMascota.selectedItem?.toString()?.trim() ?: ""
+
+            if (binding.sintomasMascota.selectedItemPosition == 0 || sintomaSeleccionado.equals("Selecciona un síntoma", ignoreCase = true)) {
+                AlertDialog.Builder(requireContext())
+                    .setTitle("Atención")
+                    .setMessage("Selecciona un síntoma.")
+                    .setPositiveButton("Aceptar", null)
+                    .show()
+                return@setOnClickListener
+            }
             lifecycleScope.launch {
                 val nuevoTurno = viewModel.obtenerSiguienteTurno()
 
@@ -71,5 +86,40 @@ class AddFragment : Fragment() {
         }
 
         viewModel.obtenerRazas()
+    }
+
+    private fun validacionCampos () {
+        val camposObli = listOf(
+
+            binding.tvNombreRaza,
+            binding.tvRazaEdit,
+            binding.etNombrePropietarioText,
+            binding.etTelfonoEdit
+        )
+        val textWatcher = object : TextWatcher {
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val todosLlenos = camposObli.all { it.text.toString().isNotBlank() }
+                binding.btnGuardar.isEnabled = todosLlenos
+
+                if(todosLlenos) {
+                    binding.btnGuardar.isEnabled = true
+                    binding.btnGuardar.setTextColor(resources.getColor(R.color.white, null))
+                    binding.btnGuardar.setTypeface(null, android.graphics.Typeface.BOLD)
+                }else{
+                    binding.btnGuardar.isEnabled = false
+                    binding.btnGuardar.setTextColor(resources.getColor(R.color.black, null))
+                    binding.btnGuardar.setTypeface(null, android.graphics.Typeface.NORMAL)
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        }
+        camposObli.forEach{ campo -> campo.addTextChangedListener(textWatcher)
+        }
+        binding.btnGuardar.isEnabled = false
+        binding.btnGuardar.setTextColor(resources.getColor(R.color.black, null))
+        binding.btnGuardar.setTypeface(null, android.graphics.Typeface.NORMAL)
     }
 }
