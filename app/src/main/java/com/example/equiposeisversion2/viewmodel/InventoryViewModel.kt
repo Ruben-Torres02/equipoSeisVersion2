@@ -21,7 +21,6 @@ class InventoryViewModel(application: Application) : AndroidViewModel(applicatio
     private val _imagenUrl = MutableLiveData<String>()
     val imagenUrl: LiveData<String> = _imagenUrl
 
-    // No es usado en tu código actual, pero si lo necesitas puedes dejarlo
     private val _listaMascota = MutableLiveData<List<RazaResponse>>()
     val listaMascota: LiveData<List<RazaResponse>> = _listaMascota
 
