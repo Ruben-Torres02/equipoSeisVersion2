@@ -40,6 +40,10 @@ class DetailsFragment : Fragment() {
         binding.fabEliminar.setOnClickListener{
             findNavController().navigate(R.id.action_detailsFragment_to_homeFragment)
         }
+
+        binding.fabEditar.setOnClickListener{
+            findNavController().navigate(R.id.action_detailsFragment_to_editFragment)
+        }
     }
 
     @Suppress("DEPRECATION")
