@@ -2,6 +2,7 @@
     <string name="titulo">DogApp</string>
     <string name="tituloAdministradorCitas">Administrador de citas.</string>
     <string name="Cita">Nueva Cita.</string>
+    <string name="editCita">Editar Cita.</string>
     <string name="nombre_mascota">Nombre de la mascota</string>
     <string name="nombre_propietatio">Nombre del propietario</string>
     <string name="raza">Raza</string>
