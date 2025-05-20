@@ -21,7 +21,7 @@ class InventoryViewHolder(
         binding.cardview.setOnClickListener {
             val bundle = Bundle().apply {
                 putSerializable("clave", inventoryMascota)
-                putString("imageUrl", imageUrl) // 👈 ESTO FALTABA
+                putString("imageUrl", imageUrl)
             }
             navController.navigate(R.id.action_homeFragment_to_detailsFragment, bundle)
         }

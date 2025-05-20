@@ -52,17 +52,8 @@ class InventoryRepository(val context: Context) {
         }
     }
 
-    suspend fun getRandomImage(breed: String): String {
-        return withContext(Dispatchers.IO) {
-            try {
-                val response = apiServiceRaza.getRandomImage(breed)
-                response.message
-            } catch (e: Exception) {
-                e.printStackTrace()
-                ""
-            }
-        }
-    }
+
+
 
 
 
