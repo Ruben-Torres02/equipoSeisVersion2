@@ -18,12 +18,13 @@ class InventoryViewHolder(
         binding.tvSintoma.text = inventoryMascota.sintomas
         binding.tvTurno.text ="# ${inventoryMascota.quantity}"
 
-        binding.cardview.setOnClickListener{
-            val bundle = Bundle()
-            bundle.putSerializable("clave", inventoryMascota)
+        binding.cardview.setOnClickListener {
+            val bundle = Bundle().apply {
+                putSerializable("clave", inventoryMascota)
+                putString("imageUrl", imageUrl) // 👈 ESTO FALTABA
+            }
             navController.navigate(R.id.action_homeFragment_to_detailsFragment, bundle)
         }
-
         Glide.with(binding.imgMascota.context)
             .load(imageUrl)
             .placeholder(android.R.drawable.ic_menu_gallery)
