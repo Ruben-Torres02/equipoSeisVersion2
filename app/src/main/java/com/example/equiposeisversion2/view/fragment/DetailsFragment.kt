@@ -69,6 +69,15 @@ class DetailsFragment : Fragment() {
         binding.tvSintoma.text = receivedInventoryMascota.sintomas
         binding.tvTurno.text = "#${receivedInventoryMascota.quantity}"
 
+        val imageUrl = arguments?.getString("imageUrl")
+
+        Glide.with(requireContext())
+            .load(imageUrl)
+            .placeholder(android.R.drawable.ic_menu_gallery)
+            .error(android.R.drawable.ic_menu_report_image)
+            .into(binding.imgMascota) // Asegúrate de que el ImageView tenga este ID en tu XML
+
+
 
     }
 
