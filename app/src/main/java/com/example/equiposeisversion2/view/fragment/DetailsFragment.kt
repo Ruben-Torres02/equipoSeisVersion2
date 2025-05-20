@@ -38,11 +38,17 @@ class DetailsFragment : Fragment() {
 
     private fun controladores() {
         binding.fabEliminar.setOnClickListener{
-            findNavController().navigate(R.id.action_detailsFragment_to_homeFragment)
+           deleteInventory()
         }
 
         binding.fabEditar.setOnClickListener{
+            val bundle = Bundle()
+            bundle.putSerializable("dataInventory", receivedInventoryMascota)
             findNavController().navigate(R.id.action_detailsFragment_to_editFragment)
+        }
+
+        binding.tvAnterior.setOnClickListener{
+            findNavController().navigate(R.id.action_detailsFragment_to_homeFragment)
         }
     }
 
@@ -64,6 +70,12 @@ class DetailsFragment : Fragment() {
         binding.tvTurno.text = "#${receivedInventoryMascota.quantity}"
 
 
+    }
+
+    private fun deleteInventory(){
+        inventoryViewModel.deleteInventory(receivedInventoryMascota)
+        inventoryViewModel.getListInvMascotas()
+        findNavController().popBackStack()
     }
 
 }

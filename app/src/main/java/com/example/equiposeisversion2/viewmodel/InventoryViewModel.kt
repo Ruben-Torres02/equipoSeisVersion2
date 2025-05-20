@@ -78,4 +78,16 @@ class InventoryViewModel(application: Application) : AndroidViewModel(applicatio
         _mascotaSeleccionada.value = inventoryMascota
     }
 
+    fun deleteInventory(inventoryMascota: InventoryMascota) {
+        viewModelScope.launch {
+            _progresState.value = true
+            try {
+                repository.deleteInventory(inventoryMascota)
+                _progresState.value = false
+            } catch (e: Exception) {
+                _progresState.value = false
+            }
+        }
+    }
+
 }
