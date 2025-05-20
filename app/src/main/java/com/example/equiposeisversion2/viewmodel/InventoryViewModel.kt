@@ -21,8 +21,6 @@ class InventoryViewModel(application: Application) : AndroidViewModel(applicatio
     private val _progresState = MutableLiveData(false)
     val progresState: LiveData<Boolean> = _progresState
 
-    private val _mascotaSeleccionada = MutableLiveData<InventoryMascota>()
-    val mascotaSeleccionada: LiveData<InventoryMascota> = _mascotaSeleccionada
 
     fun cargarMascotas() {
         viewModelScope.launch {
@@ -60,22 +58,6 @@ class InventoryViewModel(application: Application) : AndroidViewModel(applicatio
 
     suspend fun obtenerSiguienteTurno(): Int {
         return repository.contarMascotas() + 1
-    }
-
-    fun obtenerImagenPorRaza(raza: String, onResult: (String?) -> Unit) {
-        viewModelScope.launch {
-            try {
-                val urlImagen = repository.getRandomImage(raza.lowercase().replace(" ", ""))
-                onResult(if (urlImagen.isNotBlank()) urlImagen else null)
-            } catch (e: Exception) {
-                Log.e("InventoryViewModel", "Error al obtener imagen: ${e.message}")
-                onResult(null)
-            }
-        }
-    }
-
-    fun seleccionarMascota(inventoryMascota: InventoryMascota) {
-        _mascotaSeleccionada.value = inventoryMascota
     }
 
     fun deleteInventory(inventoryMascota: InventoryMascota) {
