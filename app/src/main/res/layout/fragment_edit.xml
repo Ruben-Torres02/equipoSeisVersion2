@@ -187,7 +187,7 @@
             android:text="@string/editCita"
             android:textColor="@color/gris_oscuro"
             android:backgroundTint="@color/rosado"
-            android:enabled="false"
+            android:enabled="true"
             app:icon="@drawable/icon_pencil"
             app:iconTint="@color/gris_oscuro"
             app:iconGravity="textStart"

@@ -3,7 +3,6 @@ package com.example.equiposeisversion2.viewmodel
 import android.app.Application
 import androidx.lifecycle.*
 import com.example.equiposeisversion2.model.InventoryMascota
-import com.example.equiposeisversion2.model.RazaResponse
 import com.example.equiposeisversion2.repository.InventoryRepository
 import kotlinx.coroutines.launch
 import android.util.Log
@@ -51,6 +50,18 @@ class InventoryViewModel(application: Application) : AndroidViewModel(applicatio
                 _listaMascotas.value = repository.getListInv()
                 _progresState.value = false
             }catch (e: Exception){
+                _progresState.value = false
+            }
+        }
+    }
+
+    fun updateInventory(inventoryMascota: InventoryMascota) {
+        viewModelScope.launch {
+            _progresState.value = true
+            try {
+                repository.updateInventory(inventoryMascota)
+                _progresState.value = false
+            } catch (e: Exception) {
                 _progresState.value = false
             }
         }
