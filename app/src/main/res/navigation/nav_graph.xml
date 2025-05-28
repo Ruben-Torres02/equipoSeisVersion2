@@ -55,5 +55,12 @@
         android:id="@+id/editFragment"
         android:name="com.example.equiposeisversion2.view.fragment.EditFragment"
         android:label="EditFragment"
-        tools:layout="@layout/fragment_edit" />
+        tools:layout="@layout/fragment_edit" >
+        <action
+            android:id="@+id/action_editFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_editFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
 </navigation>

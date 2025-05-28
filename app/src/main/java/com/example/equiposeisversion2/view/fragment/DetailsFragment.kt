@@ -44,8 +44,7 @@ class DetailsFragment : Fragment() {
         binding.fabEditar.setOnClickListener{
             val bundle = Bundle()
             bundle.putSerializable("dataInventory", receivedInventoryMascota)
-            findNavController().navigate(R.id.action_detailsFragment_to_editFragment)
-        }
+            findNavController().navigate(R.id.action_detailsFragment_to_editFragment, bundle)        }
 
         binding.tvAnterior.setOnClickListener{
             findNavController().navigate(R.id.action_detailsFragment_to_homeFragment)
@@ -67,7 +66,7 @@ class DetailsFragment : Fragment() {
         binding.tvRazaEdit.text = receivedInventoryMascota.raza
         binding.etTelfonoEdit.setText(receivedInventoryMascota.telefono)
         binding.tvSintoma.text = receivedInventoryMascota.sintomas
-        binding.tvTurno.text = "#${receivedInventoryMascota.quantity}"
+        binding.tvTurno.text = "#${receivedInventoryMascota.id}"
 
         val imageUrl = arguments?.getString("imageUrl")
 
