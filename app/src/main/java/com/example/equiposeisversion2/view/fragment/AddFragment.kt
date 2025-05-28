@@ -61,7 +61,6 @@ class AddFragment : Fragment() {
             }
 
             lifecycleScope.launch {
-                val nuevoTurno = viewModel.obtenerSiguienteTurno()
 
                 val mascota = InventoryMascota(
                     nameMascota = binding.tvNombreRaza.text.toString(),
@@ -69,7 +68,6 @@ class AddFragment : Fragment() {
                     namePropietario = binding.etNombrePropietarioText.text.toString(),
                     telefono = binding.etTelfonoEdit.text.toString(),
                     sintomas = binding.sintomasMascota.selectedItem?.toString() ?: "",
-                    quantity = nuevoTurno
                 )
 
                 viewModel.guardarMascota(mascota)

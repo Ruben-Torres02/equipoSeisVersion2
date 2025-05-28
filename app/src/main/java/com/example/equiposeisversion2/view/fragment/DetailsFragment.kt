@@ -74,7 +74,7 @@ class DetailsFragment : Fragment() {
             .load(imageUrl)
             .placeholder(android.R.drawable.ic_menu_gallery)
             .error(android.R.drawable.ic_menu_report_image)
-            .into(binding.imgMascota) // Asegúrate de que el ImageView tenga este ID en tu XML
+            .into(binding.imgMascota)
 
 
 

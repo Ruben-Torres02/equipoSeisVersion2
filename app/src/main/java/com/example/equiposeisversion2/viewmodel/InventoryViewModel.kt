@@ -67,10 +67,6 @@ class InventoryViewModel(application: Application) : AndroidViewModel(applicatio
         }
     }
 
-    suspend fun obtenerSiguienteTurno(): Int {
-        return repository.contarMascotas() + 1
-    }
-
     fun deleteInventory(inventoryMascota: InventoryMascota) {
         viewModelScope.launch {
             _progresState.value = true

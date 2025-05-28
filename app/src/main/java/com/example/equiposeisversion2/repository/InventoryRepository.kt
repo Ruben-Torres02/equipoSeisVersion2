@@ -23,12 +23,6 @@ class InventoryRepository(val context: Context) {
         }
     }
 
-    suspend fun contarMascotas(): Int {
-        return withContext(Dispatchers.IO) {
-            inventoryDao.countMascotas()
-        }
-    }
-
     suspend fun deleteInventory(inventoryMascota: InventoryMascota){
         withContext(Dispatchers.IO){
             inventoryDao.deleteInv(inventoryMascota)

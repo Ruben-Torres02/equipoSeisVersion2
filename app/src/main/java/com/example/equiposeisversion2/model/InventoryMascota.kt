@@ -13,7 +13,6 @@ data class InventoryMascota (
     val raza: String,
     val namePropietario: String,
     val telefono: String,
-    val sintomas: String,
-    val quantity:Int
+    val sintomas: String
 
 ): Serializable
