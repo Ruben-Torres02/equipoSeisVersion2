@@ -14,14 +14,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.06" />
+            app:layout_constraintGuide_percent="0.03" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guide2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.35" />
+            app:layout_constraintGuide_percent="0.29" />
         <TextView
             android:id="@+id/tiltedog"
             android:layout_width="wrap_content"
@@ -38,27 +38,108 @@
             />
 
         <ImageView
-            android:layout_width="300dp"
-            android:layout_height="300dp"
+            android:layout_width="160dp"
+            android:layout_height="220dp"
             android:src="@drawable/dog"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/guide1"
             android:scaleType="centerCrop" />
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/lottieView"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.492"
-            app:layout_constraintStart_toStartOf="parent"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etEmail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="40dp"
+            android:hint="@string/email"
+            android:textColorHint="@color/hint_color"
+            app:boxBackgroundMode="outline"
+            app:boxCornerRadiusTopStart="5dp"
+            app:boxCornerRadiusTopEnd="5dp"
+            app:boxCornerRadiusBottomStart="5dp"
+            app:boxCornerRadiusBottomEnd="5dp"
+            app:boxStrokeColor="@color/text_stroke"
+            app:hintTextColor="@color/hint_color"
+            app:boxBackgroundColor="@color/gris_oscuro"
             app:layout_constraintTop_toBottomOf="@id/tiltedog"
-            app:layout_constraintVertical_bias="0.511"
-            app:lottie_autoPlay="true"
+            app:layout_constraintBottom_toTopOf="@id/Password"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/huella" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etCorreo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:importantForAccessibility="yes"
+                android:maxLength="40"
+                android:inputType="text"
+                android:textColor="@color/white"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/Password"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="40dp"
+            android:hint="@string/password"
+            app:boxBackgroundMode="outline"
+            app:boxCornerRadiusTopStart="5dp"
+            app:boxCornerRadiusTopEnd="5dp"
+            app:boxCornerRadiusBottomStart="5dp"
+            app:boxCornerRadiusBottomEnd="5dp"
+            app:boxStrokeColor="@color/text_stroke"
+            app:hintTextColor="@color/hint_color"
+            android:textColorHint="@color/hint_color"
+            app:boxBackgroundColor="@color/gris_oscuro"
+            app:layout_constraintTop_toBottomOf="@id/etEmail"
+            app:layout_constraintBottom_toTopOf="@id/btnLogin"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:importantForAccessibility="yes"
+                android:maxLength="6"
+                android:inputType="number"
+                android:textColor="@color/white"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnLogin"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:text="@string/login"
+            android:textColor="@color/gris_oscuro"
+            android:backgroundTint="@color/rosado"
+            android:enabled="true"
+            android:layout_marginTop="40dp"
+            app:layout_constraintTop_toBottomOf="@id/Password"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnRegister"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:textSize="10pt"
+            android:text="@string/register"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/gris_oscuro"
+            android:enabled="true"
+            android:layout_marginTop="30dp"
+            app:layout_constraintTop_toBottomOf="@id/btnLogin"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

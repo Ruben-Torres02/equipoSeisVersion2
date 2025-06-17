@@ -11,6 +11,10 @@
     <string name="campo_texto_info">Campo de texto para ingresar info</string>
     <string name="guardar">Guardar cita</string>
     <string name="app_name">dogApp</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="register">Registrate</string>
 
     <string-array name="sintomasMascota">
 
