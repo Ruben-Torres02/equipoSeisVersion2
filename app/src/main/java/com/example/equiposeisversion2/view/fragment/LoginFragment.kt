@@ -35,43 +35,9 @@ class LoginFragment : Fragment() {
     }
 
     private fun controladores() {
-        binding.lottieView.setOnClickListener {
-            showBiometricPrompt()
+          binding.btnLogin.setOnClickListener{
+              findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
         }
-    }
-
-    private fun showBiometricPrompt() {
-        val executor: Executor = ContextCompat.getMainExecutor(requireContext())
-
-        val biometricPrompt = BiometricPrompt(this, executor,
-            object : BiometricPrompt.AuthenticationCallback() {
-
-                override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
-                    super.onAuthenticationSucceeded(result)
-                    findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
-                }
-
-
-                override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
-                    super.onAuthenticationError(errorCode, errString)
-                    Log.d("Biometria", "Error de autenticación: $errString")
-
-                    Toast.makeText(requireContext(), "", Toast.LENGTH_SHORT).show()
-                }
-
-                override fun onAuthenticationFailed() {
-                    super.onAuthenticationFailed()
-                    Toast.makeText(requireContext(), "el error es propio del dispositivo", Toast.LENGTH_SHORT).show()
-                }
-            })
-
-        val promptInfo = BiometricPrompt.PromptInfo.Builder()
-            .setTitle("Autenticación con Biometría")
-            .setSubtitle("Ingrese su huella digital")
-            .setNegativeButtonText("Cancelar")
-            .build()
-
-        biometricPrompt.authenticate(promptInfo)
     }
 
 
