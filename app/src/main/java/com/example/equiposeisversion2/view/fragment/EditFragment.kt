@@ -15,7 +15,9 @@ import com.example.equiposeisversion2.R
 import com.example.equiposeisversion2.databinding.FragmentEditBinding
 import com.example.equiposeisversion2.model.InventoryMascota
 import com.example.equiposeisversion2.viewmodel.InventoryViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class EditFragment : Fragment() {
 
     private lateinit var binding: FragmentEditBinding

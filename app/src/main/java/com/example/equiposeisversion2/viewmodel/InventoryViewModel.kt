@@ -6,10 +6,16 @@ import com.example.equiposeisversion2.model.InventoryMascota
 import com.example.equiposeisversion2.repository.InventoryRepository
 import kotlinx.coroutines.launch
 import android.util.Log
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class InventoryViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repository = InventoryRepository(application)
+@HiltViewModel
+class InventoryViewModel @Inject constructor(
+    private val repository: InventoryRepository
+) : ViewModel() {
+
+
 
     private val _listaMascotas = MutableLiveData<MutableList<InventoryMascota>>()
     val listaMascotas: LiveData<MutableList<InventoryMascota>> get() = _listaMascotas

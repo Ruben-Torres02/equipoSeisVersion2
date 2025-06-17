@@ -13,8 +13,15 @@ import com.example.equiposeisversion2.R
 import com.example.equiposeisversion2.databinding.FragmentHomeBinding
 import com.example.equiposeisversion2.view.adapter.InventoryAdapter
 import com.example.equiposeisversion2.viewmodel.InventoryViewModel
+import com.example.equiposeisversion2.webservice.ApiServiceRaza
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class  HomeFragment : Fragment() {
+
+    @Inject
+    lateinit var apiServiceRaza: ApiServiceRaza
 
     private lateinit var binding: FragmentHomeBinding
     private val inventoryViewModel: InventoryViewModel by viewModels()
@@ -52,7 +59,7 @@ class  HomeFragment : Fragment() {
             val recycler = binding.recyclerview
             val layoutManager = LinearLayoutManager(context)
             recycler.layoutManager = layoutManager
-            val adapter = InventoryAdapter(listaMascotas, findNavController())
+            val adapter = InventoryAdapter(listaMascotas, findNavController(), apiServiceRaza)
             recycler.adapter = adapter
             adapter.notifyDataSetChanged()
 

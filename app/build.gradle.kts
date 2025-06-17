@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("com.google.devtools.ksp")
     id ("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 }
 android {
     namespace = "com.example.equiposeisversion2"
@@ -99,5 +100,11 @@ dependencies {
 
     //imagencirucular
     implementation ("com.google.android.material:material:1.11.0")
+
+    //dagger hilt
+    implementation("com.google.dagger:hilt-android:2.56.2")
+    kapt("com.google.dagger:hilt-android-compiler:2.56.2")
+
+
 
 }

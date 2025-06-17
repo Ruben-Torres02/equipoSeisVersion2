@@ -14,8 +14,10 @@ import com.example.equiposeisversion2.R
 import com.example.equiposeisversion2.databinding.FragmentDetailsBinding
 import com.example.equiposeisversion2.model.InventoryMascota
 import com.example.equiposeisversion2.viewmodel.InventoryViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class DetailsFragment : Fragment() {
 
     private lateinit var binding: FragmentDetailsBinding

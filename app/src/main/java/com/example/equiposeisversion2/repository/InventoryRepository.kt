@@ -1,17 +1,17 @@
 package com.example.equiposeisversion2.repository
 
-import android.content.Context
-import com.example.equiposeisversion2.data.InventoryBD
 import com.example.equiposeisversion2.data.InventoryDao
 import com.example.equiposeisversion2.model.InventoryMascota
 import com.example.equiposeisversion2.webservice.ApiServiceRaza
-import com.example.equiposeisversion2.webservice.ApiUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class InventoryRepository(val context: Context) {
-    private var inventoryDao: InventoryDao = InventoryBD.getDatabase(context).inventoryDao()
-    private var apiServiceRaza: ApiServiceRaza = ApiUtils.getApiServiceRaza()
+class InventoryRepository @Inject constructor(
+    private val inventoryDao: InventoryDao,
+    private val apiServiceRaza: ApiServiceRaza
+) {
+
     suspend fun saveInvMascota(inventoryMascota: InventoryMascota) {
         withContext(Dispatchers.IO) {
             inventoryDao.saveInvMascota(inventoryMascota)
@@ -45,12 +45,6 @@ class InventoryRepository(val context: Context) {
             }
         }
     }
-
-
-
-
-
-
 }
 
 
