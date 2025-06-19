@@ -1,9 +1,9 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("com.google.devtools.ksp")
     id ("kotlin-kapt")
     id("com.google.dagger.hilt.android")
+    id("com.google.gms.google-services")
 }
 android {
     namespace = "com.example.equiposeisversion2"
@@ -42,6 +42,9 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.activity)
+    testImplementation(libs.junit.junit)
     val navVersion = "2.9.0"
     implementation ("androidx.core:core-ktx:1.12.0")
     implementation("com.google.android.material:material:1.10.0")
@@ -79,12 +82,6 @@ dependencies {
     // LiveData
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.9.0")
 
-    // Room
-    implementation ("androidx.room:room-runtime:2.7.1")
-    implementation ("androidx.room:room-ktx:2.7.1")
-    ksp("androidx.room:room-compiler:2.7.1")
-    implementation("com.google.android.material:material:1.10.0")
-
     //Retrofit
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
@@ -104,6 +101,13 @@ dependencies {
     //dagger hilt
     implementation("com.google.dagger:hilt-android:2.56.2")
     kapt("com.google.dagger:hilt-android-compiler:2.56.2")
+
+    //Firebase
+    implementation(platform("com.google.firebase:firebase-bom:33.15.0"))
+    implementation("com.google.firebase:firebase-firestore")
+
+    //authentication
+    implementation("com.google.firebase:firebase-auth-ktx")
 
 
 

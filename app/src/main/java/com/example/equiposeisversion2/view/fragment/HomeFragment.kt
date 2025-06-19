@@ -1,5 +1,6 @@
 package com.example.equiposeisversion2.view.fragment
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -65,4 +66,5 @@ class  HomeFragment : Fragment() {
 
         }
     }
+
 }

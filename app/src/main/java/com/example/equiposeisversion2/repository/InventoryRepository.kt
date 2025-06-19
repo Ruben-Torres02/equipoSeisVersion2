@@ -1,39 +1,53 @@
 package com.example.equiposeisversion2.repository
 
-import com.example.equiposeisversion2.data.InventoryDao
 import com.example.equiposeisversion2.model.InventoryMascota
 import com.example.equiposeisversion2.webservice.ApiServiceRaza
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class InventoryRepository @Inject constructor(
-    private val inventoryDao: InventoryDao,
+    private val firestore: FirebaseFirestore,
     private val apiServiceRaza: ApiServiceRaza
 ) {
 
-    suspend fun saveInvMascota(inventoryMascota: InventoryMascota) {
+
+    private val mascotasRef
+        get() = firestore.collection("mascotas")
+
+    suspend fun saveInvMascota(mascota: InventoryMascota) {
         withContext(Dispatchers.IO) {
-            inventoryDao.saveInvMascota(inventoryMascota)
-        }
-    }
-    suspend fun getListInv():MutableList<InventoryMascota>{
-        return withContext(Dispatchers.IO){
-            inventoryDao.getListInv()
+            mascotasRef.add(mascota).await()
         }
     }
 
-    suspend fun deleteInventory(inventoryMascota: InventoryMascota){
-        withContext(Dispatchers.IO){
-            inventoryDao.deleteInv(inventoryMascota)
+    suspend fun getListInv(): MutableList<InventoryMascota> {
+        return withContext(Dispatchers.IO) {
+            val snapshot = mascotasRef.get().await()
+            snapshot.documents.mapNotNull { doc ->
+                doc.toObject(InventoryMascota::class.java)
+            }.toMutableList()
         }
     }
 
-    suspend fun updateInventory(inventoryMascota: InventoryMascota){
-        withContext(Dispatchers.IO){
-            inventoryDao.updateInv(inventoryMascota)
+    suspend fun deleteInventory(mascota: InventoryMascota) {
+        withContext(Dispatchers.IO) {
+            mascota.id?.let { id ->
+                mascotasRef.document(id).delete().await()
+            }
         }
     }
+
+    suspend fun updateInventory(mascota: InventoryMascota) {
+        withContext(Dispatchers.IO) {
+            mascota.id?.let { id ->
+                mascotasRef.document(id).set(mascota).await()
+            }
+        }
+    }
+
     suspend fun getRaza(): Map<String, List<String>> {
         return withContext(Dispatchers.IO) {
             try {

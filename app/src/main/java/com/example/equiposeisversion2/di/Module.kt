@@ -1,16 +1,12 @@
 package com.example.equiposeisversion2.di
 
-import android.content.Context
-import androidx.room.Room
-import com.example.equiposeisversion2.data.InventoryBD
-import com.example.equiposeisversion2.data.InventoryDao
-import com.example.equiposeisversion2.utils.Constants
 import com.example.equiposeisversion2.utils.Constants.BASE_URL
 import com.example.equiposeisversion2.webservice.ApiServiceRaza
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -22,12 +18,14 @@ object Module {
 
     @Singleton
     @Provides
-    fun provideInventoryDB(@ApplicationContext context: Context):InventoryBD{
-        return Room.databaseBuilder(
-            context,
-            InventoryBD::class.java,
-            Constants.DATABASE_NAME
-        ).build()
+    fun provideFirebaseAuth(): FirebaseAuth {
+        return FirebaseAuth.getInstance()
+    }
+
+    @Singleton
+    @Provides
+    fun provideFirebaseFirestore(): FirebaseFirestore {
+        return FirebaseFirestore.getInstance()
     }
 
     @Singleton
@@ -43,11 +41,5 @@ object Module {
     @Provides
     fun provideApiService(retrofit: Retrofit): ApiServiceRaza {
         return retrofit.create(ApiServiceRaza::class.java)
-    }
-
-    @Singleton
-    @Provides
-    fun provideDaoReto(inventoryBD: InventoryBD): InventoryDao {
-        return inventoryBD.inventoryDao()
     }
 }

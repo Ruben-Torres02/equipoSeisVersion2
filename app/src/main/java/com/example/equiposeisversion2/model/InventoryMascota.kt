@@ -1,14 +1,13 @@
 package com.example.equiposeisversion2.model
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+
+import com.google.firebase.firestore.DocumentId
 import java.io.Serializable
 
-@Entity
 data class InventoryMascota (
 
-    @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
+    @DocumentId
+    val id: String? = null,
     val nameMascota: String,
     val raza: String,
     val namePropietario: String,
