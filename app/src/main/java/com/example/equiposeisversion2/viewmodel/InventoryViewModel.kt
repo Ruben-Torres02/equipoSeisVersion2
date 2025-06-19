@@ -1,15 +1,18 @@
 package com.example.equiposeisversion2.viewmodel
 
-import android.app.Application
 import androidx.lifecycle.*
 import com.example.equiposeisversion2.model.InventoryMascota
 import com.example.equiposeisversion2.repository.InventoryRepository
 import kotlinx.coroutines.launch
 import android.util.Log
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class InventoryViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repository = InventoryRepository(application)
+@HiltViewModel
+class InventoryViewModel @Inject constructor(
+    private val repository: InventoryRepository
+) : ViewModel() {
 
     private val _listaMascotas = MutableLiveData<MutableList<InventoryMascota>>()
     val listaMascotas: LiveData<MutableList<InventoryMascota>> get() = _listaMascotas
@@ -22,11 +25,12 @@ class InventoryViewModel(application: Application) : AndroidViewModel(applicatio
 
 
     fun cargarMascotas() {
-        viewModelScope.launch {
-            val lista = repository.getListInv()
+        _progresState.value = true
 
+        repository.getListInv { lista ->
             Log.d("ViewModel", "Mascotas cargadas: ${lista.size}")
-            _listaMascotas.postValue(lista)
+            _listaMascotas.postValue(lista.toMutableList())
+            _progresState.postValue(false)
         }
     }
 
@@ -44,14 +48,11 @@ class InventoryViewModel(application: Application) : AndroidViewModel(applicatio
     }
 
     fun getListInvMascotas() {
-        viewModelScope.launch {
-            _progresState.value = true
-            try {
-                _listaMascotas.value = repository.getListInv()
-                _progresState.value = false
-            }catch (e: Exception){
-                _progresState.value = false
-            }
+        _progresState.value = true
+
+        repository.getListInv { lista ->
+            _listaMascotas.postValue(lista.toMutableList())
+            _progresState.postValue(false)
         }
     }
 

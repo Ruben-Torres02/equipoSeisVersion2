@@ -1,39 +1,72 @@
 package com.example.equiposeisversion2.repository
 
-import android.content.Context
-import com.example.equiposeisversion2.data.InventoryBD
-import com.example.equiposeisversion2.data.InventoryDao
+import android.util.Log
 import com.example.equiposeisversion2.model.InventoryMascota
 import com.example.equiposeisversion2.webservice.ApiServiceRaza
-import com.example.equiposeisversion2.webservice.ApiUtils
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class InventoryRepository(val context: Context) {
-    private var inventoryDao: InventoryDao = InventoryBD.getDatabase(context).inventoryDao()
-    private var apiServiceRaza: ApiServiceRaza = ApiUtils.getApiServiceRaza()
-    suspend fun saveInvMascota(inventoryMascota: InventoryMascota) {
+class InventoryRepository @Inject constructor(
+    private val firestore: FirebaseFirestore,
+    private val apiServiceRaza: ApiServiceRaza
+) {
+
+
+    private val mascotasRef = firestore.collection("mascotas")
+    private val counterRef = firestore.collection("contador").document("mascotas_counter")
+
+
+    suspend fun saveInvMascota(mascota: InventoryMascota) {
         withContext(Dispatchers.IO) {
-            inventoryDao.saveInvMascota(inventoryMascota)
-        }
-    }
-    suspend fun getListInv():MutableList<InventoryMascota>{
-        return withContext(Dispatchers.IO){
-            inventoryDao.getListInv()
+            firestore.runTransaction { transaction ->
+                val snapshot = transaction.get(counterRef)
+                val current = snapshot.getLong("count") ?: 0
+                val newCount = current + 1
+
+                transaction.update(counterRef, "count", newCount)
+
+                val nuevaMascota = mascota.copy(numberId = newCount)
+                transaction.set(mascotasRef.document(), nuevaMascota)
+            }.await()
         }
     }
 
-    suspend fun deleteInventory(inventoryMascota: InventoryMascota){
-        withContext(Dispatchers.IO){
-            inventoryDao.deleteInv(inventoryMascota)
+     fun getListInv(callback: (List<InventoryMascota>) -> Unit) {
+        mascotasRef
+            .orderBy("numberId", Query.Direction.ASCENDING)
+            .addSnapshotListener { snapshot, error ->
+                if (error != null) {
+                    Log.e("Firestore", "Error al escuchar mascotas", error)
+                    return@addSnapshotListener
+                }
+
+                val lista = snapshot?.documents?.mapNotNull {
+                    it.toObject(InventoryMascota::class.java)
+                } ?: emptyList()
+
+                callback(lista)
+            }
+    }
+    suspend fun deleteInventory(mascota: InventoryMascota) {
+        withContext(Dispatchers.IO) {
+            mascota.id?.let { id ->
+                mascotasRef.document(id).delete().await()
+            }
         }
     }
 
-    suspend fun updateInventory(inventoryMascota: InventoryMascota){
-        withContext(Dispatchers.IO){
-            inventoryDao.updateInv(inventoryMascota)
+    suspend fun updateInventory(mascota: InventoryMascota) {
+        withContext(Dispatchers.IO) {
+            mascota.id?.let { id ->
+                mascotasRef.document(id).set(mascota).await()
+            }
         }
     }
+
     suspend fun getRaza(): Map<String, List<String>> {
         return withContext(Dispatchers.IO) {
             try {
@@ -45,12 +78,6 @@ class InventoryRepository(val context: Context) {
             }
         }
     }
-
-
-
-
-
-
 }
 
 

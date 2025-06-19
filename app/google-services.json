@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "46205514843",
+    "project_id": "equiposeisversion2",
+    "storage_bucket": "equiposeisversion2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:46205514843:android:0bf52e540f54a45b343b7e",
+        "android_client_info": {
+          "package_name": "com.example.equiposeisversion2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFf5cCko9JTYnxXM4ux3AapU4HYx2kC8o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

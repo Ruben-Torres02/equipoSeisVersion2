@@ -7,13 +7,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.equiposeisversion2.databinding.ItemInventoryBinding
 import com.example.equiposeisversion2.model.InventoryMascota
 import com.example.equiposeisversion2.view.viewholder.InventoryViewHolder
-import com.example.equiposeisversion2.webservice.RetrofitCliente
+import com.example.equiposeisversion2.webservice.ApiServiceRaza
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class InventoryAdapter
     (private val listaMascotas:MutableList<InventoryMascota>,
-     private val navController: NavController
+     private val navController: NavController,
+     private val apiServiceRaza: ApiServiceRaza
     ): RecyclerView.Adapter<InventoryViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InventoryViewHolder {
@@ -30,7 +31,7 @@ class InventoryAdapter
         kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.Dispatchers.Main).launch {
             try {
                 val response = withContext(kotlinx.coroutines.Dispatchers.IO) {
-                    RetrofitCliente.apiServiceRaza.getRandomImage(mascota.raza.lowercase())
+                    apiServiceRaza.getRandomImage(mascota.raza?.lowercase() ?: "")
                 }
                 holder.setItemInventory(mascota, response.message)
             } catch (e: Exception) {

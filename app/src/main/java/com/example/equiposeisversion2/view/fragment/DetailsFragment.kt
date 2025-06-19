@@ -14,8 +14,10 @@ import com.example.equiposeisversion2.R
 import com.example.equiposeisversion2.databinding.FragmentDetailsBinding
 import com.example.equiposeisversion2.model.InventoryMascota
 import com.example.equiposeisversion2.viewmodel.InventoryViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class DetailsFragment : Fragment() {
 
     private lateinit var binding: FragmentDetailsBinding
@@ -66,7 +68,7 @@ class DetailsFragment : Fragment() {
         binding.tvRazaEdit.text = receivedInventoryMascota.raza
         binding.etTelfonoEdit.setText(receivedInventoryMascota.telefono)
         binding.tvSintoma.text = receivedInventoryMascota.sintomas
-        binding.tvTurno.text = "#${receivedInventoryMascota.id}"
+        binding.tvTurno.text = "#${receivedInventoryMascota.numberId}"
 
         val imageUrl = arguments?.getString("imageUrl")
 

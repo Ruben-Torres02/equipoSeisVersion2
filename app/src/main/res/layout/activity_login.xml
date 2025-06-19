@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clContenedor"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/gris_oscuro"
-        tools:context=".view.fragment.LoginFragment">
+        tools:context=".view.LoginActivity">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guide1"
@@ -140,6 +141,6 @@
             />
 
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

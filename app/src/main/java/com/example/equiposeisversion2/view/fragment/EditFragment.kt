@@ -15,7 +15,9 @@ import com.example.equiposeisversion2.R
 import com.example.equiposeisversion2.databinding.FragmentEditBinding
 import com.example.equiposeisversion2.model.InventoryMascota
 import com.example.equiposeisversion2.viewmodel.InventoryViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class EditFragment : Fragment() {
 
     private lateinit var binding: FragmentEditBinding
@@ -82,7 +84,8 @@ class EditFragment : Fragment() {
             raza = raza,
             namePropietario = namePropietario,
             telefono = telefono,
-            sintomas = receivedInventoryMascota.sintomas
+            sintomas = receivedInventoryMascota.sintomas,
+            numberId = receivedInventoryMascota.numberId
         )
         inventoryViewModel.updateInventory(inventoryMascota)
         findNavController().navigate(R.id.action_editFragment_to_homeFragment)
