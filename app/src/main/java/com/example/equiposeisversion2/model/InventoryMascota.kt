@@ -7,11 +7,14 @@ import java.io.Serializable
 data class InventoryMascota (
 
     @DocumentId
-    val id: String? = null,
-    val nameMascota: String,
-    val raza: String,
-    val namePropietario: String,
-    val telefono: String,
-    val sintomas: String
+    var id: String? = null,
+    var nameMascota: String? = null,
+    var raza: String? = null,
+    var namePropietario: String? = null,
+    var telefono: String? = null,
+    var sintomas: String? = null,
+    var numberId: Long? = null
 
-): Serializable
+): Serializable {
+    constructor() : this(null, null, null, null, null, null, null)
+}

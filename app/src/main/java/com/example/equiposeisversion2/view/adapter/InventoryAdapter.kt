@@ -31,7 +31,7 @@ class InventoryAdapter
         kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.Dispatchers.Main).launch {
             try {
                 val response = withContext(kotlinx.coroutines.Dispatchers.IO) {
-                    apiServiceRaza.getRandomImage(mascota.raza.lowercase())
+                    apiServiceRaza.getRandomImage(mascota.raza?.lowercase() ?: "")
                 }
                 holder.setItemInventory(mascota, response.message)
             } catch (e: Exception) {

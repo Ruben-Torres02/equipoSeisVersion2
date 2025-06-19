@@ -68,7 +68,7 @@ class DetailsFragment : Fragment() {
         binding.tvRazaEdit.text = receivedInventoryMascota.raza
         binding.etTelfonoEdit.setText(receivedInventoryMascota.telefono)
         binding.tvSintoma.text = receivedInventoryMascota.sintomas
-        binding.tvTurno.text = "#${receivedInventoryMascota.id}"
+        binding.tvTurno.text = "#${receivedInventoryMascota.numberId}"
 
         val imageUrl = arguments?.getString("imageUrl")
 

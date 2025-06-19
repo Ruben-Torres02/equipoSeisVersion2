@@ -16,7 +16,7 @@ class InventoryViewHolder(
     fun setItemInventory(inventoryMascota: InventoryMascota, imageUrl: String) {
         binding.tvNombreMascota1.text = inventoryMascota.nameMascota
         binding.tvSintoma.text = inventoryMascota.sintomas
-        binding.tvTurno.text ="# ${inventoryMascota.id}"
+        binding.tvTurno.text ="# ${inventoryMascota.numberId}"
 
         binding.cardview.setOnClickListener {
             val bundle = Bundle().apply {

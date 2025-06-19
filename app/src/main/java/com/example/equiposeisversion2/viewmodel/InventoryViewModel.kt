@@ -14,8 +14,6 @@ class InventoryViewModel @Inject constructor(
     private val repository: InventoryRepository
 ) : ViewModel() {
 
-
-
     private val _listaMascotas = MutableLiveData<MutableList<InventoryMascota>>()
     val listaMascotas: LiveData<MutableList<InventoryMascota>> get() = _listaMascotas
 
@@ -27,11 +25,12 @@ class InventoryViewModel @Inject constructor(
 
 
     fun cargarMascotas() {
-        viewModelScope.launch {
-            val lista = repository.getListInv()
+        _progresState.value = true
 
+        repository.getListInv { lista ->
             Log.d("ViewModel", "Mascotas cargadas: ${lista.size}")
-            _listaMascotas.postValue(lista)
+            _listaMascotas.postValue(lista.toMutableList())
+            _progresState.postValue(false)
         }
     }
 
@@ -49,14 +48,11 @@ class InventoryViewModel @Inject constructor(
     }
 
     fun getListInvMascotas() {
-        viewModelScope.launch {
-            _progresState.value = true
-            try {
-                _listaMascotas.value = repository.getListInv()
-                _progresState.value = false
-            }catch (e: Exception){
-                _progresState.value = false
-            }
+        _progresState.value = true
+
+        repository.getListInv { lista ->
+            _listaMascotas.postValue(lista.toMutableList())
+            _progresState.postValue(false)
         }
     }
 

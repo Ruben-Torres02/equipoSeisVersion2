@@ -84,7 +84,8 @@ class EditFragment : Fragment() {
             raza = raza,
             namePropietario = namePropietario,
             telefono = telefono,
-            sintomas = receivedInventoryMascota.sintomas
+            sintomas = receivedInventoryMascota.sintomas,
+            numberId = receivedInventoryMascota.numberId
         )
         inventoryViewModel.updateInventory(inventoryMascota)
         findNavController().navigate(R.id.action_editFragment_to_homeFragment)
