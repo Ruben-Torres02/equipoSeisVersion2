@@ -29,6 +29,7 @@ class LoginActivity : AppCompatActivity() {
         sesion()
         setup()
         viewModelObservers()
+        setupTextValidation()
     }
 
     private fun viewModelObservers() {
@@ -85,13 +86,34 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
-    private fun sesion(){
-        val email = sharedPreferences.getString("email",null)
-        loginViewModel.sesion(email){ isEnableView ->
-            if (isEnableView){
-                binding.clContenedor.visibility = View.INVISIBLE
-                goToHome()
-            }
+    private fun sesion() {
+        val currentUser = loginViewModel.getCurrentUser()
+
+        if (currentUser != null) {
+            binding.clContenedor.visibility = View.INVISIBLE
+            goToHome()
         }
     }
+
+    private fun setupTextValidation() {
+        val emailField = binding.etCorreo
+        val passwordField = binding.etPassword
+        val loginButton = binding.btnLogin
+
+        val textWatcher = object : android.text.TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val email = emailField.text.toString().trim()
+                val password = passwordField.text.toString().trim()
+                loginButton.isEnabled = email.isNotEmpty() && password.isNotEmpty()
+            }
+
+            override fun afterTextChanged(s: android.text.Editable?) {}
+        }
+
+        emailField.addTextChangedListener(textWatcher)
+        passwordField.addTextChangedListener(textWatcher)
+    }
+
 }

@@ -1,6 +1,6 @@
 package com.example.equiposeisversion2.view.fragment
 
-import android.content.SharedPreferences
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,6 +14,7 @@ import com.example.equiposeisversion2.R
 import com.example.equiposeisversion2.databinding.FragmentHomeBinding
 import com.example.equiposeisversion2.view.adapter.InventoryAdapter
 import com.example.equiposeisversion2.viewmodel.InventoryViewModel
+import com.example.equiposeisversion2.viewmodel.LoginViewModel
 import com.example.equiposeisversion2.webservice.ApiServiceRaza
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -26,6 +27,7 @@ class  HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private val inventoryViewModel: InventoryViewModel by viewModels()
+    private val loginViewModel: LoginViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,12 +42,8 @@ class  HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         controladores()
         observeListInventory()
-
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                requireActivity().moveTaskToBack(true)
-            }
-        })
+        handleBackPress()
+        observeLogout()
     }
 
     private fun controladores() {
@@ -65,6 +63,23 @@ class  HomeFragment : Fragment() {
             adapter.notifyDataSetChanged()
 
         }
+    }
+    private fun observeLogout() {
+        loginViewModel.logoutState.observe(viewLifecycleOwner) { isLoggedOut ->
+            if (isLoggedOut) {
+                requireActivity().finishAffinity()
+            }
+        }
+    }
+    private fun handleBackPress() {
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                requireContext().getSharedPreferences("prefs", Context.MODE_PRIVATE)
+                    .edit().clear().apply()
+                loginViewModel.signOut()
+                requireActivity().finishAffinity()
+            }
+        })
     }
 
 }

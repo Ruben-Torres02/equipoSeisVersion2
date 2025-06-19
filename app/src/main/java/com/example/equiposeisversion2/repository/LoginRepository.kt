@@ -4,6 +4,7 @@ import com.example.equiposeisversion2.model.UserRequest
 import com.example.equiposeisversion2.model.UserResponse
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
+import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -32,7 +33,7 @@ class LoginRepository @Inject constructor(
                                 userResponse(
                                     UserResponse(
                                         isRegister = false,
-                                        message = "El usuario ya existe"
+                                        message = "Error en el registro"
                                     )
                                 )
                             } else {
@@ -71,5 +72,13 @@ class LoginRepository @Inject constructor(
         } else {
             isLogin(false)
         }
+    }
+
+    fun signOut() {
+        firebaseAuth.signOut()
+    }
+
+    fun getCurrentUser(): FirebaseUser? {
+        return firebaseAuth.currentUser
     }
 }

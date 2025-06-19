@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.equiposeisversion2.model.UserRequest
 import com.example.equiposeisversion2.model.UserResponse
 import com.example.equiposeisversion2.repository.LoginRepository
-import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -19,6 +19,8 @@ class LoginViewModel @Inject constructor(
 
     private val _isRegister = MutableLiveData<UserResponse>()
     val isRegister: LiveData<UserResponse> = _isRegister
+    private val _logoutState = MutableLiveData<Boolean>()
+    val logoutState: LiveData<Boolean> = _logoutState
 
     fun registerUser(userRequest: UserRequest) {
         viewModelScope.launch {
@@ -32,11 +34,16 @@ class LoginViewModel @Inject constructor(
             loginRepository.loginUser(email, pass, isLogin)
     }
 
-    fun sesion(email: String?, isEnableView: (Boolean) -> Unit) {
-        if (email != null) {
-            isEnableView(true)
-        } else {
-            isEnableView(false)
-        }
+
+
+    fun signOut() {
+        loginRepository.signOut()
+        _logoutState.value = true
     }
+
+    fun getCurrentUser(): FirebaseUser? {
+        return loginRepository.getCurrentUser()
+    }
+
+
 }
