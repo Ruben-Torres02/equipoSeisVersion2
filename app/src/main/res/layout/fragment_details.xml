@@ -27,7 +27,7 @@
 
         <androidx.appcompat.widget.Toolbar
             android:layout_width="350dp"
-            android:layout_height="95dp"
+            android:layout_height="120dp"
             android:background="@drawable/toolbar"
             app:layout_constraintBottom_toBottomOf="@id/guide1"
             app:layout_constraintEnd_toEndOf="parent"

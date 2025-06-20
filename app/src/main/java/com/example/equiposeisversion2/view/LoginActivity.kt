@@ -30,6 +30,7 @@ class LoginActivity : AppCompatActivity() {
         setup()
         viewModelObservers()
         setupTextValidation()
+        setupTextValidationRegister()
     }
 
     private fun viewModelObservers() {
@@ -67,6 +68,7 @@ class LoginActivity : AppCompatActivity() {
         }else {
             Toast.makeText(this, "Campos Vacios", Toast.LENGTH_SHORT).show()
         }
+
     }
 
     private fun goToHome(){
@@ -114,6 +116,28 @@ class LoginActivity : AppCompatActivity() {
 
         emailField.addTextChangedListener(textWatcher)
         passwordField.addTextChangedListener(textWatcher)
+    }
+    private fun setupTextValidationRegister() {
+        val emailField = binding.etCorreo
+        val passField = binding.etPassword
+        val registerButton = binding.btnRegister
+
+        registerButton.isEnabled = false
+
+        val textWatcher = object : android.text.TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val email = emailField.text.toString().trim()
+                val pass = passField.text.toString().trim()
+                registerButton.isEnabled = email.isNotEmpty() && pass.isNotEmpty()
+            }
+
+            override fun afterTextChanged(s: android.text.Editable?) {}
+        }
+
+        emailField.addTextChangedListener(textWatcher)
+        passField.addTextChangedListener(textWatcher)
     }
 
 }

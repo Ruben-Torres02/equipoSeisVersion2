@@ -74,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:importantForAccessibility="yes"
                 android:maxLength="40"
-                android:inputType="text"
+                android:inputType="textEmailAddress"
                 android:textColor="@color/white"
                 />
         </com.google.android.material.textfield.TextInputLayout>
@@ -107,7 +107,7 @@
                 android:layout_height="wrap_content"
                 android:importantForAccessibility="yes"
                 android:maxLength="6"
-                android:inputType="number"
+                android:inputType="numberPassword"
                 android:textColor="@color/white"
                 />
         </com.google.android.material.textfield.TextInputLayout>
