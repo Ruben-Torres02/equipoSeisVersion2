@@ -52,10 +52,11 @@ dependencies {
 
     //testing
     testImplementation("junit:junit:4.13.2")
-    testImplementation("org.mockito:mockito-core:3.12.4")
-    testImplementation("org.mockito:mockito-inline:3.12.4")
+    testImplementation("org.mockito:mockito-core:4.8.0")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:5.2.1")
+    testImplementation("org.mockito:mockito-inline:5.2.0")
     testImplementation ("org.mockito:mockito-android:3.11.2")
-    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.2")
+    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
     testImplementation ("androidx.arch.core:core-testing:2.2.0")
     debugImplementation ("org.jacoco:org.jacoco.core:0.8.7")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
